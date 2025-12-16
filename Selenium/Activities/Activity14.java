@@ -15,6 +15,12 @@ public class Activity14 {
 		   driver.get("https://training-support.net/webelements/tables");
 				   
 		   System.out.println("Title is: "+driver.getTitle());
+		
+		   List<WebElement> rows = driver.findElements(By.xpath("//table/tbody/tr"));
+		   System.out.println("Number of rows: " +rows.size());
+		   
+		   List<WebElement> cols = driver.findElements(By.xpath("//table/thead/tr/th"));
+		   System.out.println("Number of columns: " +cols.size());
 		   
 		   WebElement row5 = driver.findElement(By.xpath("//table/tbody/tr[5]/td[2]"));
 	       System.out.println("Book Name in the 5th row is: " + row5.getText());
@@ -29,3 +35,4 @@ public class Activity14 {
 	       driver.quit();
 	}
 }
+
