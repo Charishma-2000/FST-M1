@@ -48,7 +48,7 @@ public class NativeApp {
 	
 	public void todoList_Create() {
 		
-		wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("Predicted app: To-Do List"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("To-Do List"))).click();
 		wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.id("com.app.todolist:id/fab_new_task"))).click();
 		WebElement name = driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.app.todolist:id/et_new_task_name\"]"));
 		name.click();
@@ -93,15 +93,16 @@ public class NativeApp {
 	WebElement firsttask = wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.androidUIAutomator("text(\"Complete Activity 1\")")));
 	((JavascriptExecutor) driver).executeScript("mobile: longClickGesture", ImmutableMap.of("elementId", ((RemoteWebElement) firsttask).getId(), "duration", 2000));
 	wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Edit To-Do Task\"]"))).click();
-	WebElement Desc = driver.findElement(AppiumBy.xpath("//android.widget.EditText[@resource-id=\"com.app.todolist:id/et_new_task_description\"]"));
-	Desc.click();
-	Desc.sendKeys("Next Saturday");
+	WebElement dedline = driver.findElement(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.app.todolist:id/tv_todo_list_deadline\"]"));
+	dedline.click();
+	wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.ImageButton[@content-desc=\"Next month\"]"))).click();
+	wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.view.View[@content-desc=\"03 January 2026\"]"))).click();
+	wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.Button[@resource-id=\"com.app.todolist:id/bt_deadline_ok\"]"))).click();
 	driver.findElement(AppiumBy.xpath("//android.widget.Button[@resource-id=\"com.app.todolist:id/bt_new_task_ok\"]")).click();
-	wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("(//android.widget.TextView[@resource-id=\"com.app.todolist:id/tv_exlv_task_deadline\"])[1]"))).click();
-	WebElement desc_check = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.xpath("//android.widget.TextView[contains(@text, 'Next Saturday')]")));
+	WebElement desc_check = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.xpath("//android.widget.TextView[@resource-id=\"com.app.todolist:id/tv_exlv_task_deadline\" and @text=\"Deadline: 03.01.2026\"]")));
 	String actual_desc_text=desc_check.getText();
 			
-		Assert.assertEquals(actual_desc_text, "Next Saturday"); 
+		Assert.assertEquals(actual_desc_text, "Deadline: 03.01.2026"); 
 }
 
 @Test (priority = 3)
